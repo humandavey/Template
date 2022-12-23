@@ -1,27 +1,32 @@
 package me.humandavey.template.menu;
 
+import me.humandavey.template.Template;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Consumer;
 
-public class Menu {
+public class Menu implements Listener {
 
 	private final Inventory inventory;
 	private final String name;
 	private final int rows;
-
-	// TODO: Implement Consumers to allow for checking which items were pressed (left, right, middle)
+	private Consumer<InventoryClickEvent> onClick;
 
 	public Menu(String name, int rows) {
 		this.inventory = Bukkit.createInventory(null, rows * 9, name);
 		this.name = name;
 		this.rows = rows;
+		Template.getInstance().getServer().getPluginManager().registerEvents(this, Template.getInstance());
 	}
 
 	public Menu(String name, HashMap<Integer, ItemStack> items) {
@@ -37,6 +42,29 @@ public class Menu {
 			setItemAt(item.getKey(), item.getValue());
 		}
 		this.rows = rows;
+		Template.getInstance().getServer().getPluginManager().registerEvents(this, Template.getInstance());
+	}
+
+	@EventHandler
+	public void onClick(InventoryClickEvent event) {
+		if (canCallConsumer(event)) {
+			onClick.accept(event);
+		}
+	}
+
+	public boolean canCallConsumer(InventoryClickEvent event) {
+		if (event.getInventory().equals(inventory)) {
+			return onClick != null;
+		}
+		return false;
+	}
+
+	public void setOnClick(Consumer<InventoryClickEvent> onClick) {
+		this.onClick = onClick;
+	}
+
+	public Consumer<InventoryClickEvent> getOnClick() {
+		return onClick;
 	}
 
 	public ItemStack getItemAt(int i) {

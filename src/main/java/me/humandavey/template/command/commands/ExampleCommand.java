@@ -24,6 +24,9 @@ public class ExampleCommand extends Command {
 		}
 
 		PagedMenu menu = new PagedMenu("Paged Menu Test", 3, items, 1);
+		menu.setOnClick(event -> {
+			event.getWhoClicked().sendMessage("You clicked on " + event.getCurrentItem().getType().name());
+		});
 		menu.open(player);
 	}
 }
