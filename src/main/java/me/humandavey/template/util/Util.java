@@ -193,7 +193,7 @@ public class Util {
 	}
 
 	public static String getCenteredMessage(Player player, String message){
-		if(message == null || message.equals("")) player.sendMessage("");
+		if (message == null || message.equals("")) player.sendMessage("");
 		message = colorize(message);
 
 		int messagePxSize = 0;
@@ -201,16 +201,14 @@ public class Util {
 		boolean isBold = false;
 
 		for(char c : message.toCharArray()){
-			if(c == '§'){
+			if (c == '§') {
 				previousCode = true;
-				continue;
-			}else if(previousCode){
+			} else if (previousCode) {
 				previousCode = false;
-				if(c == 'l' || c == 'L'){
+				if (c == 'l' || c == 'L') {
 					isBold = true;
-					continue;
-				}else isBold = false;
-			}else{
+				} else isBold = false;
+			} else {
 				DefaultFontInfo dFI = DefaultFontInfo.getDefaultFontInfo(c);
 				messagePxSize += isBold ? dFI.getBoldLength() : dFI.getLength();
 				messagePxSize++;
@@ -226,6 +224,6 @@ public class Util {
 			sb.append(" ");
 			compensated += spaceLength;
 		}
-		return sb.toString() + message;
+		return sb + message;
 	}
 }

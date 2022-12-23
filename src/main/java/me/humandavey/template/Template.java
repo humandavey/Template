@@ -1,5 +1,6 @@
 package me.humandavey.template;
 
+import me.humandavey.template.command.commands.ExampleCommand;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class Template extends JavaPlugin {
@@ -35,7 +36,7 @@ public final class Template extends JavaPlugin {
 	}
 
 	private void registerCommands() {
-
+		new ExampleCommand();
 	}
 
 	public static Template getInstance() {
