@@ -2,9 +2,12 @@ package me.humandavey.template.util;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.PotionEffect;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +16,27 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Util {
+
+	public static void resetPlayer(Player player, boolean clearInv) {
+		player.setGameMode(GameMode.SURVIVAL);
+		player.setHealth(20);
+		player.setMaxHealth(20);
+		player.setFoodLevel(20);
+		if (clearInv) {
+			player.getInventory().clear();
+			player.getInventory().setArmorContents(new ItemStack[4]);
+			player.getInventory().setItemInOffHand(null);
+		}
+		for (PotionEffect pe : player.getActivePotionEffects()) {
+			player.removePotionEffect(pe.getType());
+		}
+		player.setExp(0);
+		player.setLevel(0);
+		player.setTotalExperience(0);
+		player.setAllowFlight(false);
+		player.setAbsorptionAmount(0);
+		player.resetTitle();
+	}
 
 	public static List<String> colorizeList(List<String> list) {
 		List<String> strings = new ArrayList<>();

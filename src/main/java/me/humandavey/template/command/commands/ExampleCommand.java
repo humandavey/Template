@@ -1,7 +1,7 @@
 package me.humandavey.template.command.commands;
 
 import me.humandavey.template.command.Command;
-import me.humandavey.template.menu.type.PagedMenu;
+import me.humandavey.template.menu.menus.PagedMenu;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;

@@ -1,4 +1,4 @@
-package me.humandavey.template.menu.type;
+package me.humandavey.template.menu.menus;
 
 import me.humandavey.template.menu.Menu;
 import me.humandavey.template.util.Util;
@@ -70,8 +70,6 @@ public class PagedMenu extends Menu {
 		if (event.getInventory().equals(getInventory())) {
 			if (event.getCurrentItem() == null) return;
 			if (event.getCurrentItem().getItemMeta() == null) return;
-			if (event.getCurrentItem().getItemMeta().getDisplayName() == null) return;
-			if (event.getCurrentItem().getType() == null) return;
 			if (event.getCurrentItem().getType() == Material.ARROW && event.getCurrentItem().getItemMeta().getDisplayName().contains("Back")) {
 				if (getOnClick() == null) {
 					new PagedMenu(getName().substring(0, getName().length() - 3 - String.valueOf(page).length()), getRows(), items, page - 1).open((Player) event.getWhoClicked());
@@ -96,8 +94,6 @@ public class PagedMenu extends Menu {
 	public boolean canCallConsumer(InventoryClickEvent event) {
 		if (event.getCurrentItem() == null) return false;
 		if (event.getCurrentItem().getItemMeta() == null) return false;
-		if (event.getCurrentItem().getItemMeta().getDisplayName() == null) return false;
-		if (event.getCurrentItem().getType() == null) return false;
 		if (event.getCurrentItem().getType() == Material.ARROW && event.getCurrentItem().getItemMeta().getDisplayName().contains("Back")) {
 			return false;
 		} else if (event.getCurrentItem().getType() == Material.ARROW && event.getCurrentItem().getItemMeta().getDisplayName().contains("Next")) {
