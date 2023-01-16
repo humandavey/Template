@@ -19,9 +19,11 @@ public class ScoreboardManager {
 		obj.setDisplaySlot(DisplaySlot.SIDEBAR);
 		obj.setDisplayName(title);
 
-		for (int i = 0; i < lines.length; i++) {
+		int spot = 0;
+		for (int i = lines.length - 1; i >= 0; i--) {
 			Score score = obj.getScore(lines[i]);
-			score.setScore(i);
+			score.setScore(spot);
+			spot++;
 		}
 	}
 }
