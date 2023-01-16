@@ -7,7 +7,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.command.defaults.BukkitCommand;
 import org.bukkit.entity.Player;
-import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
@@ -35,7 +34,7 @@ public abstract class Command extends BukkitCommand {
 	}
 
 	@Override
-	public final boolean execute(@NotNull CommandSender commandSender, @NotNull String s, String[] strings) {
+	public final boolean execute(CommandSender commandSender, String s, String[] strings) {
 		if (commandSender instanceof Player) {
 			execute((Player) commandSender, strings);
 		} else {
@@ -53,7 +52,7 @@ public abstract class Command extends BukkitCommand {
 	}
 
 	@Override
-	public final @NotNull List<String> tabComplete(@NotNull CommandSender sender, @NotNull String alias, String[] args) throws IllegalArgumentException {
+	public final List<String> tabComplete(CommandSender sender, String alias, String[] args) throws IllegalArgumentException {
 		return tabComplete(sender, args);
 	}
 

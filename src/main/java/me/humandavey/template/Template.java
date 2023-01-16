@@ -1,6 +1,7 @@
 package me.humandavey.template;
 
 import me.humandavey.template.command.commands.ExampleCommand;
+import me.humandavey.template.nametag.NametagManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class Template extends JavaPlugin {
@@ -32,7 +33,7 @@ public final class Template extends JavaPlugin {
 	}
 
 	private void registerListeners() {
-
+		getServer().getPluginManager().registerEvents(new NametagManager(), this);
 	}
 
 	private void registerCommands() {
