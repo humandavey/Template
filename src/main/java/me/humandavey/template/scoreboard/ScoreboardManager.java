@@ -1,10 +1,7 @@
 package me.humandavey.template.scoreboard;
 
 import org.bukkit.entity.Player;
-import org.bukkit.scoreboard.DisplaySlot;
-import org.bukkit.scoreboard.Objective;
-import org.bukkit.scoreboard.Score;
-import org.bukkit.scoreboard.Scoreboard;
+import org.bukkit.scoreboard.*;
 
 public class ScoreboardManager {
 
@@ -15,15 +12,41 @@ public class ScoreboardManager {
 			obj.unregister();
 		}
 
+		for (Team team : sb.getTeams()) {
+			try {
+				Integer.parseInt(team.getName());
+				team.unregister();
+			} catch (NumberFormatException ignored) {}
+		}
+
 		Objective obj = sb.registerNewObjective(player.getName(), "dummy");
 		obj.setDisplaySlot(DisplaySlot.SIDEBAR);
 		obj.setDisplayName(title);
 
 		int spot = 0;
 		for (int i = lines.length - 1; i >= 0; i--) {
-			Score score = obj.getScore(lines[i]);
-			score.setScore(spot);
+
+			Team team = sb.registerNewTeam(i + "");
+			team.addEntry(multiplyString(" ", i));
+			team.setPrefix(lines[i]);
+			obj.getScore(multiplyString(" ", i)).setScore(spot);
+
 			spot++;
 		}
+	}
+
+	public static void updateLine(Player player, int line, String content) {
+		Scoreboard sb = player.getScoreboard();
+
+		Team team = sb.getTeam(line + "");
+		team.setPrefix(content);
+	}
+
+	private static String multiplyString(String content, int i) {
+		String output = content;
+		for (int j = 0; j < i; j++) {
+			output += content;
+		}
+		return output;
 	}
 }
